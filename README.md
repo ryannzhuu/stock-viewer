@@ -36,15 +36,17 @@ python project.py
 Which stock ticker would you like to check? (-n to proceed)
 
 ## Example Output
+
 AAPL
 
-Metric	Value
-lastPrice	189.41
-previousClose	188.93
-open	189.75
-dayHigh	191.11
-dayLow	188.35
-marketCap	2.9T
+| Metric        | Value  |
+|---------------|--------|
+| lastPrice     | 189.41 |
+| previousClose | 188.93 |
+| open          | 189.75 |
+| dayHigh       | 191.11 |
+| dayLow        | 188.35 |
+| marketCap     | 2.9T   |
 
 (Values vary depending on market data.)
 
