@@ -1,17 +1,72 @@
 # Stock Viewer
-#### Video Demo: https://www.youtube.com/watch?v=e4Dim68usM8
-#### Description:
 
-Stock Viewer is a command-line interface program that retrieves real-time stock data for the user. The main goal of this project was to make checking basic stock data quick, simple, and efficient.
+A simple command-line tool for quickly checking real-time stock data using Python.
 
-The user may run the program with stock tickers included in the command-line arguments. The parse_args() function uses the argparse library to read tickers entered by the user, whether or not the user indicated to fetch specific metrics or not, and if so, the specific metrics that the user entered. This can be done with "-m" or "--metrics" followed by the specific metrics that the user would like to obtain. If the user does not enter any flags, every command-line argument is assumed to be a stock ticker and there are default metrics that are to be displayed for each valid ticker entered: lastPrice, previousClose, open, dayHigh, dayLow, and marketCap.
+## Overview
+Stock Viewer retrieves live market information for one or more stock tickers and displays selected metrics in a clean, readable table. You can run it by passing tickers directly from the command line, or enter them interactively. An optional --metrics flag allows customizing which metrics to display, and results can be saved to a CSV file.
 
-The user may run the program without stock tickers in the command-line arguments. In this case, the program enters a loop that allows the user to individually enter each stock ticker they would like to check. They can exit the loop by typing "-n", which will prompt the program to continue (after tickers are inputted, the program goes to verify them).
+## Features
 
-A ticker is valid if no errors arise when the yfinance library attempts to fetch data for the ticker, which occurs in the verify_input() function. This function takes in each ticker provided by the user - converted to uppercase to remove case-sensitivity and because all tickers are uppercase - and uses yfinance API's fast_info to retrieve data. If the data retrieval is unsuccessful, the ticker is skipped and an error message is printed. The verify_input() function returns a list of dicts, with each dict containing a "Ticker" key, with the ticker name assigned as the value and an "Info" key, which stores the corresponding dictionary of stock data returned by fast_info.
+Real-time financial data via yfinance
 
-Next, the program will display the data through the display_data() function. This function takes in the list returned by verify_input() after it is unpacked. For each element of this list, the function organizes the corresponding data of all of the metrics to be displayed, either the default metrics or the metrics specified previously by the user, and prints this data out in a table using tabulate. Additionally, millify is used, only for the marketCap metric, because marketCap values tend to be very high. To increase readability and to prevent this one metric from contorting the table, millify abbreviates the value, following it up with the proper suffix. Additionally, other metrics are rounded to 2 decimal places. If a metric was not successfully retrieved, the value printed inside the table is N/A.
+Supports multiple tickers
 
-Lastly, the program is able to write to files and save the data fetched in .csv files. The main method prompts the user to indicate whether or not they would like to save their data to a .csv. If they indicate yes, the save() function is called, and the user is prompted for a filename. The filename must end in .csv, or the program will declare that the filename is invalid and ask for another filename. The program overwrites existing files with this name, or will create an entirely new .csv file with the given filename.
+Optional -m / --metrics flag to choose which fields to display
 
-Generally, printed tables and the values within saved .csv files will differ, because the values printed into tables will be abbreviated and/or rounded, depending on the tickers entered and their actual data.
+Clean table formatting using tabulate
+
+Market capitalization abbreviated with millify
+
+Optional CSV export
+
+## Installation
+Install dependencies using requirements.txt:
+pip install -r requirements.txt
+
+## Usage
+
+### Default Metrics
+python project.py AAPL MSFT TSLA
+
+### Select Specific Metrics
+python project.py AAPL MSFT -m open dayHigh marketCap
+
+### Interactive Mode
+python project.py
+Which stock ticker would you like to check? (-n to proceed)
+
+## Example Output
+AAPL
+
+Metric	Value
+lastPrice	189.41
+previousClose	188.93
+open	189.75
+dayHigh	191.11
+dayLow	188.35
+marketCap	2.9T
+
+(Values vary depending on market data.)
+
+## CSV Export
+Would you like to save this to a CSV? (Y/N)
+What .csv do you want to save to? mydata.csv
+
+## File Structure
+project.py
+README.md
+requirements.txt
+
+## Technologies Used
+
+Python
+
+yfinance
+
+argparse
+
+tabulate
+
+millify
+
+Built as final project for Harvard CS50P: Introduction to Programming with Python.
